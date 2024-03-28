@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tamarjy</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <link rel="icon" href="/static/images/icons/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="/static/styles/main.css">
+        <script src="/static/scripts/app.js"></script>
+    </head>
+    <body class="bg-slate-200 font-['Roboto Slab'] overflow-x-hidden">
+        <!-- Header section -->
+        <section class="min-w-full w-fit min-h-dvh h-fit relative flex flex-col justify-normal bg-cyan-900
+                        bg-[url('/static/images/icons/headr_bg.svg')] bg-[length:100%_20%] md:bg-auto bg-no-repeat bg-left-bottom
+                        ">
+            <header class="container max-w-[1680px] xl:mx-auto flex justify-between
+                            items-stretch text-slate-300 mt-5 md:mt-4 px-0 md:px-9">
+                <!-- logo -->
+                <div class="m-0 p-0 w-28 max-w-56 md:w-full">
+                    <a href="/" class="decoration-0 p-0 mx-auto md:m-0 w-100 h-100">
+                        <img src="/static/images/icons/tamarjy_logo.png" alt="Tamarjy logo"
+                        class="p-0 m-0 w-full object-center hover:scale-95">
+                    </a>
+                </div>
+                <!-- navbar -->
+                <div class="m-0 p-0 items-center align-middle md:pt-4">
+                    <button class="block relative md:hidden z-50" id="toggler">
+                        <img src="/static/images/icons/menu_1.png" alt="Menu" class="w-10 pr-3" id="menu_img">
+                    </button>
+                    <nav class="m-0 p-0 hidden fixed left-0 md:left-auto top-16 md:top-auto md:flex rounded-lg md:relative flex-col md:flex-row 
+                                justify-around items-center md:justify-end md:items-center bg-cyan-900
+                                md:gap-6 h-1/2 w-screen md:h-auto md:w-auto md:bg-inherit" id="nav_bar">
+                        <a href="#predictor" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Services</a>
+                        <a href="#about_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">About</a>
+                        <a href="#contact_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Get in touch</a>
+                        <a href="/login" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 md:hidden hover:text-slate-100 focus:text-slate-100">Login</a>
+                    </nav>
+
+                </div>
+            </header>
+            <div class="container max-w-[1680px] xl:mx-auto flex flex-col md:flex-row justify-between px-0 md:px-9
+            items-stretch mt-52">
+                <div class="container flex flex-col md:flex-row justify-between p-2
+                            items-stretch">
+                    <div class="flex flex-col">
+                        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-center md:text-left text-slate-300 text-opacity-75">Knowledge Is</h1>
+                        <h2 class="text-2xl lg:text-4xl font-semibold text-center md:text-left text-slate-300 text-opacity-65 my-auto mb-12 md:mt-2 md:mb-5">Your Vital Prescription For Health</h2>
+                        <a href="#predictor" class="decoration-0 bg-cyan-900 text-center text-slate-300 text-2xl md:text-3xl lg:text-4xl font-semibold p-2
+                        md:p-3 rounded-lg border-opacity-65 border-l-cyan-200 border-0 md:border-4 hover:text-cyan-900 hover:bg-slate-300
+                        lg:w-2/5 absolute md:relative bottom-12 md:bottom-auto left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0">
+                        Get started
+                        </a>
+                    </div>
+                </div>
+                <div class="container md:flex flex-col md:flex-row justify-end p-2
+                            items-end ">
+                    <div class="flex flex-col justify-center items-center mt-4 md:mt-0 place-self-end">
+                        <img src="/static/images/icons/tamarjy_slogan.png" alt="Tamarjy logo"
+                        class="w-1/2 md:w-full object-fill md:block absolute md:relative left-1/2 md:left-auto bottom-[21%] md:bottom-auto -translate-x-1/2 md:translate-x-0">
+                    </div>
+                </div>
+                <a href="/login" class="decoration-0 hidden md:block absolute bottom-[8%] right-[7%] md:w-full max-w-32 text-3xl md:text-3xl text-slate-300 text-opacity-70
+                                        text-center font-light border-0 border-b border-blue-200 md:border-0 rounded-md hover:text-cyan-900 hover:bg-slate-300">
+                    Login
+                </a>
+            </div>
+        </section>
+        <!-- Predict section -->
+        <section class="min-w-full w-fit min-h-dvh h-fit pt-10 relative flex flex-col justify-normal bg-slate-200" id="#predictor">
+            <!-- predictor information -->
+            <div class="container max-w-[1680px] xl:mx-auto flex flex-col justify-between
+                            items-stretch text-slate-800 mb-10 mt-5 md:mt-4 px-2 md:px-9">
+                <div class="container flex flex-col justify-center
+                            items-stretch">
+                    <h2 class="text-2xl md:text-4xl text-center text-opacity-75">Symptoms based prediction</h3>
+                    <h3 class="text-5xl lg:text-7xl font-semibold text-center text-opacity-65 my-auto mb-12 md:mt-5">Tamarjy Model</h3>
+                </div>
+                <div class="container flex flex-col md:flex-row justify-center md:mt-8 gap-6">
+                    <div class="w-full md:w-1/2 min-h-full m-0 md:mr-3 p-0 flex-col justify-between">
+                        <p class="text-xl md:text-2xl lg:text-3xl m-auto text-justify md:leading-tight">
+                            Welcome! Tamarjy is here to help you. Describe the symptoms you are experiencing<br>
+                            Please note that Tamarjy is a highly trained machine learning model that can predict the most 
+                            likely diseases based on the symptoms you provide. 
+                            However, it's important to note that the predictions provided by Tamarjy are not 
+                            conclusive and should not be used as a diagnosis. It's always advisable to 
+                            consult with a professional doctor for an accurate diagnosis 
+                            <a href="#services" 
+                                class="inline-block text-xs md:text-xl text-inherit border-2 border-cyan-900 hover:bg-cyan-900 hover:text-slate-300 p-1 w-fit rounded-xl">
+                                See Our Services
+                            </a>
+                        </p>
+                    </div>
+                    <div class="w-full md:w-1/2 min-h-full m-0 p-0 md:ml-3 flex flex-col justify-between">
+                        <textarea name="symptoms" id="symptoms" rows="6" cols="30"
+                         class="w-full min-h-32 md:min-h-60 max-h-60 p-2 text-xl text-slate-900 border-0 rounded-lg leading-tight self-start shadow-slate-600"></textarea>
+                         <button class="bg-cyan-900 text-slate-300 text-xl p-2 rounded-lg border-0 hover:bg-slate-300 hover:text-cyan-900 w-full mt-2" id="predict">Predict</button>
+                    </div>
+                </div>
+            </div>
+            <!-- predictor results -->
+            <div class="container hidden max-w-[1680px] xl:mx-auto flex-col justify-between items-stretch
+                        overflow-hidden text-slate-800 mb-10 mt-5 md:mt-4 px-2 md:px-9" id="results">
+                <div class="container flex flex-col justify-center
+                            items-stretch">
+                    <h2 class="text-2xl md:text-4xl text-center text-opacity-75">Symptoms based prediction</h2>
+                    <h3 class="text-5xl lg:text-7xl font-semibold text-center text-opacity-65 my-auto mb-12 md:mt-5" id="disease">Predicted Diseases</h3>
+                </div>
+                <!-- results section -->
+                <div class="container overflow-hidden flex flex-col ustify-center md:mt-8">
+                    <!-- results nav -->
+                    <div class="w-full overflow-scroll flex flex-row p-0 m-0 mb-5 bg-cyan-900 text-slate-200 text-center">
+                        <ul class="w-full overflow-scroll decoration-0 flex flex-row p-0 m-0 text-inherit bg-inherit" id="diseases_nav">
+                        </ul>
+                    </div>
+                    <!-- results content -->
+                    <div class="w-full m-0 mb-5 p-0 flex flex-col md:flex-row md:justify-between items-stretch">
+                        <!-- disease description -->
+                        <div class="w-full md:w-1/2 md:mr-5 flex flex-col" id="disease_desc">
+                            <h2 class="text-left text-slate-800 text-2xl font-semibold">Description</h2>
+                            <p class="text-left text-slate-800 text-xl mt-5" id="description"></p>
+                        </div>
+                        <!-- disease precautions -->
+                        <div class="w-full md:w-1/2 md:ml-5 flex flex-col" id="disease_prec">
+                            <h2 class="text-left text-slate-800 text-2xl font-semibold">Precautions</h2>
+                            <p class="text-left text-slate-800 text-xl mt-5" id="precautions"></p>
+                        </div>
+                    </div>
+                    <!-- get a reservation -->
+                    <div class="w-full m-0 mb-5 p-0 flex flex-wrap flex-col md:flex-row md:justify-center items-stretch">
+                        <button class="bg-cyan-900 text-slate-300 text-xl rounded-lg border-0 hover:bg-slate-300 hover:text-cyan-900 w-1/2 max-w-xs mt-2 mx-auto p-2 " id="reserve">Set a reservation</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </body>
+</html>

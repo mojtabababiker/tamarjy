@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamarjy - Reserve</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="icon" href="/static/images/icons/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <script src="/static/scripts/reserve.js"></script>
+</head>
+<body class="bg-slate-200 font-[Roboto Slab] overflow-x-hidden">
+    <!-- user id hidden tag -->
+    <input type="hidden" id="user_id" data-userId="{{ current_user.id }}" value="">
+    <!-- Header section -->
+    <section class="w-full p-0 py-2 m-0 sticky top-0 bg-cyan-900">
+        <header class="container max-w-[1680px] xl:mx-auto flex justify-between
+                            items-stretch text-slate-300 px-0 md:px-9">
+            <!-- logo -->
+            <div class="m-0 p-0 w-28 max-w-56 md:w-full">
+                <a href="/" class="decoration-0 p-0 mx-auto md:m-0 w-100 h-100">
+                    <img src="/static/images/icons/tamarjy_logo.png" alt="Tamarjy logo"
+                    class="p-0 m-0 w-full object-center hover:scale-95">
+                </a>
+            </div>
+            <!-- navbar -->
+            <div class="m-0 p-0 items-center align-middle md:pt-4">
+                <button class="block relative md:hidden z-50" id="toggler">
+                    <img src="/static/images/icons/menu_1.png" alt="Menu" class="w-10 pr-3" id="menu_img">
+                </button>
+                <nav class="m-0 p-0 hidden fixed left-0 md:left-auto top-16 md:top-auto md:flex rounded-lg md:relative flex-col md:flex-row 
+                            justify-around items-center md:justify-end md:items-center bg-cyan-900
+                            md:gap-6 h-1/2 w-screen md:h-auto md:w-auto md:bg-inherit" id="nav_bar">
+                    <a href="#predictor" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Services</a>
+                    <a href="#about_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">About</a>
+                    <a href="#contact_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Get in touch</a>
+                    <a href="/logout" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Logout</a>
+                </nav>
+            </div>
+        </header>
+    </section>
+    <!-- clinics section -->
+    <section class="w-full p-0 m-0 mt-20 text-slate-800 overflow-x-hidden">
+        <!-- headline -->
+        <div class="container max-w-[1680px] xl:mx-auto flex flex-col justify-center align-middle items-center">
+            <h2 class="text-2xl md:text-3xl text-center text-opacity-75">Clinics</h2>
+            <h3 class="text-3xl md:text-5xl text-center text-opacity-65">Our Legit Health Providers</h3>
+        </div>
+        <!-- Disease nav -->
+        <div class="container max-w-[1680px] xl:mx-auto overflow-scroll flex flex-row p-0 m-0 mt-16 mb-5 bg-cyan-900 text-slate-200 text-center">
+            <ul class="w-full overflow-scroll decoration-0 flex flex-row p-0 m-0 text-inherit bg-inherit" id="diseases_nav">
+                {% for disease in diseases %}
+                <li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer hover:bg-cyan-800" id="{{ disease['disease_id'] }}" data-specialty="{{ disease['specialty'] }}">
+                    {{ disease['disease_name'] }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- clinics -->
+        <div class="w-full max-w-[1680px] xl:mx-auto flex flex-row flex-wrap justify-between items-stretch gap-8" id="clincs">
+            <!-- reservation message -->
+            <div class="w-full shrink-0 m-0 p-0 text-center hidden" id="reservation_message">
+                <h3 class="w-full md:w-1/2 text-xl md:text-2xl text-center text-opacity-75"></h3>
+            </div>
+            <!-- clinics card -->
+            {% for clinic in clinics %}
+            <div class="w-full h-72 md:h-80 md:w-[30%] m-2 md:m-0 rounded-lg border-2 border-opacity-65 border-cyan-700
+                        flex flex-col overflow-hidden">
+                <!-- clinic info -->
+                <div class="w-full h-1/2 flex flex-row m-0 p-0">
+                    <!-- clinic image -->
+                    <img src="/static/images/clinics_images/{{ clinic.image }}" alt="clinic image" class="w-full object-cover m-0 p-0">
+                </div>
+                <!-- clinic details -->
+                <div class="w-full flex flex-col justify-start pl-2 m-0 mt-2">
+                    <h3 class="text-xl text-center text-opacity-75 font-bold">{{ clinic.name }}</h3>
+                    <p class="text-sm text-left text-opacity-65 font-bold inline-block">Specialty: <span class="text-opacity-100 font-normal">{{ clinic.specialty }}</span></p>
+                    <p class="text-sm text-left text-opacity-65 font-bold inline-block">Phone: <span class="text-opacity-100 font-normal">{{ clinic.phone }}</span></p>
+                </div>
+                <!-- TODO: clinic available dates -->
+                <!-- reserve -->
+                <div class="w-full align-bottom flex flex-row justify-center m-0 p-0">
+                    <button class="w-1/2 p-3 bg-cyan-700 text-slate-200 rounded-lg hover:bg-cyan-800 reserve" data-clinicId="{{ clinic.id }}">Reserve</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</body>
+</html>

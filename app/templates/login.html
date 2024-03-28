@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamarjy - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="icon" href="/static/images/icons/favicon.png" type="image/x-icon">
+    <script scr="/static/scripts/login.js"></script>
+    <link rel="stylesheet" href="/static/styles/main.css">
+</head>
+<body class="flex justify-center items-center align-middle font-['Roboto Slab'] overflow-x-hidden md:bg-slate-200 bg-cyan-900">
+    <section class="container max-w-[1024px] border-0 rounded-lg md:p-28 mx-auto flex justify-center align-middle items-center relative bottom-1/2 translate-y-1/2 bg-cyan-900 ">
+        <!-- pop-up window -->
+        <div class="w-full max-w-[280px] h-[240px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                    border-4 border-cyan-950 rounded-lg bg-slate-200 text-cyan-950 m-0 p-2
+                    flex-col justify-center items-stretch hidden" id="pop-up">
+            <h1 class="text-lg md:text-2xl text-center font-semibold mb-5">Press allow location access</h1>
+            <p class="text-xs md:text-lg text-justify">
+                Tamarjy uses your location to allocate the nearest health care providers. 
+                Please allow location access to continue.
+            </p>
+        </div>
+        <!-- login form -->
+        <div class="w-full md:w-1/2 flex justify-center items-center align-middle px-4 py-3 relative">
+            <form method="post" action="{{ url_for('login') }}" enctype="multipart/form-data"
+                    class="flex flex-col gap-3 w-full mx-auto">
+                {{ form.hidden_tag() }}
+                <input type="hidden" name="next_page" value="{{ next_page }}">
+                <input type="hidden" name="latitude" id="latitude" value="">
+                <input type="hidden" name="longitude" id="longitude" value="">
+                {% with errors = get_flashed_messages() %}
+                    {% if errors %}
+                        <div class="w-full bg-red-500 text-slate-200 text-center p-2 rounded-lg opacity-65">
+                            {{ errors[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <label for="email" class="text-slate-300">Email</label>
+                {{ form.email(class="p-2 rounded-lg border-2 border-slate-300") }}
+                <label for="password" class="text-slate-300">Password</label>
+                {{ form.password(class="p-2 rounded-lg border-2 border-slate-300") }}
+                {{ form.submit(class='w-1/2 p-2 border-2 text-slate-200 text-lg cursor-pointer border-cyan-900 rounded-lg bg-cyan-900 hover:bg-slate-200 hover:text-cyan-900 ') }}
+            </form>
+            <a href="{{ url_for('register') }}?next_page={{ next_page }}" class="w-1/2 absolute right-1 bottom-1 text-sm decoration-0 p-2 border-2 text-slate-200 cursor-pointer border-cyan-900 rounded-lg bg-cyan-900 hover:bg-slate-200 hover:text-cyan-900">
+                Don't have an account? Register
+            </a>
+        </div>
+        <!-- logo section -->
+        <div class="w-1/2 flex justify-center items-center">
+            <img src="/static/images/icons/tamarjy_slogan.png" alt="Tamarjy logo"
+                        class="w-full object-fill md:block  md:relative md:left-auto md:bottom-auto">
+        </div>
+    </section>
+</body>
+</html>

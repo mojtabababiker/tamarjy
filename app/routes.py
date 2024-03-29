@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Routes module that holds all the routes for the application"""
 import json
-from flask import redirect, render_template, request
+from flask import redirect, render_template, request, make_response
 from flask import flash, url_for
 from flask_login import login_user, login_required
 from flask_login import logout_user, current_user  # type: ignore
@@ -21,13 +21,19 @@ def reserve():
     """The reserve route
     Return all the clinics that are near the user for the specified disease specialty
     """
-    # a list of dictionaries containing the diseases
-    # their ids, probabilities, and specialties
-    diseases = request.cookies.get('diseases', None)
+    # a list containing the diseases ids that the user has
+    diseases_id = request.headers.get('Diseases-Ids', [], type=list)
+    if not diseases_id or len(diseases_id) == 0:
+        diseases_id = request.cookies.get('Diseases-Ids', [], type=list)
+    diseases = []
+    for disease_id in diseases_id:
+        try:
+            diseases.append(storage.get('Disease', filters={'id': disease_id})[0].to_dict())
+        except Exception as e:
+            print(e)
 
     clinics = []
-    if diseases:
-        diseases = json.loads(diseases)
+    if diseases and len(diseases) >= 1:
         clinics = storage.get("Clinic", filters={"specialty": diseases[0]['specialty']})
     else:
         # get the most rated clinics near the user
@@ -37,6 +43,18 @@ def reserve():
     # filter the clinics to the clinics that are near the user
     clinics = [clinic for clinic in clinics if abs(clinic.address - current_user.address) <= 0.005]
     return render_template('clinics.html', diseases=diseases, clinics=clinics)
+
+@app.route('/set_cookie', methods=['GET'])
+def set_cookie():
+    """set the diseases cookie"""
+    # if Disease-Ids in request headers add them to cookies                                         
+    diseases_id = request.headers.get('Diseases-Ids', [], type=list)
+    if diseases_id:
+        res = make_response({"status": "seccuss"}, 200)
+        diseases_id = json.dumps(diseases_id)
+        res.set_cookie('Diseases-Ids', diseases_id, max_age=600)
+        return res
+    return make_response({"error": "no cookie made"}, 400)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -65,6 +83,15 @@ def login():
 
     if '/login' in request.url:
         return render_template('login.html', form=form, next_page='home')
+    # if Disease-Ids in request headers add them to cookies
+    diseases_id = request.headers.get('Diseases-Ids', [], type=list)
+    if diseases_id:
+        res = make_response(render_template(
+            'login.html',form=form, next_page=request.url.split('/')[-1])
+            )
+        diseases_id = json.dumps(diseases_id)
+        res.set_cookie('Diseases-Ids', diseases_id, max_age=600)
+        return res
     return render_template('login.html', form=form, next_page=request.url.split('/')[-1])
 
 @app.route('/register', methods=['GET', 'POST'])

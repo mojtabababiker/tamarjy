@@ -38,9 +38,9 @@ def predict():
             disease_dict['disease_id'] = "NAN"
             disease_dict['specialty'] = "NAN"
         diseases.append(disease_dict)
-    res = make_response(jsonify({"diseases": diseases}), 200)
+    res = make_response({"diseases": diseases}, 200)
     diseases_json = json.dumps(diseases)
-    res.set_cookie('diseases', diseases_json, max_age=600, domain='localhost')
+    res.set_cookie('diseases', diseases_json, max_age=6000, domain='127.0.0.1:5500')
     return res
 
 @app_routes.route('/diseases/<disease_id>', methods=['GET'])

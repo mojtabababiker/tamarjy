@@ -28,12 +28,12 @@ $(document).ready(() => {
         $.ajax({
             url: `http://${window.location.host}/set_cookie`,
             type: 'GET',
-            headers: {'Diseases-Ids': diseases},
+            headers: {'Diseases-Ids': diseases.join(', ')},
             success: (data) => {
-                alert(data.message);
+                alert(data.status)
+                $('#reserve')[0].click()
             }
         });
-	$('#reserve').click()
     });
     // API section
     const url = 'http://localhost:5050/api/v1';
@@ -68,13 +68,13 @@ $(document).ready(() => {
             $.ajax({
                 url: url + '/predict',
                 type: 'POST',
-		contentType: 'application/json',
+		        contentType: 'application/json',
                 data: JSON.stringify({symptoms: symptoms}),
-		dataType: "json",
+		        dataType: "json",
                 success: (data) => {
                     // list of objects [{disease_name: 'name', disease_id: '1234-abcd', probability: 0.0}]
                     const diseases = data.diseases;
-		    console.log(diseases)
+		            console.log(diseases)
                     diseases.forEach((disease) => {
                         diseasesNav.append(
                             '<li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer"' +

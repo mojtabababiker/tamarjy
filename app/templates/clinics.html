@@ -15,7 +15,7 @@
 </head>
 <body class="bg-slate-200 font-[Roboto Slab] overflow-x-hidden">
     <!-- user id hidden tag -->
-    <input type="hidden" id="user_id" data-userId="{{ current_user.id }}" value="">
+    <input type="hidden" id="user_id" data-userid="{{ current_user.id }}" value="">
     <!-- Header section -->
     <section class="w-full p-0 py-2 m-0 sticky top-0 bg-cyan-900">
         <header class="container max-w-[1680px] xl:mx-auto flex justify-between
@@ -54,14 +54,14 @@
         <div class="container max-w-[1680px] xl:mx-auto overflow-scroll flex flex-row p-0 m-0 mt-16 mb-5 bg-cyan-900 text-slate-200 text-center">
             <ul class="w-full overflow-scroll decoration-0 flex flex-row p-0 m-0 text-inherit bg-inherit" id="diseases_nav">
                 {% for disease in diseases %}
-                <li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer hover:bg-cyan-800" id="{{ disease['disease_id'] }}" data-specialty="{{ disease['specialty'] }}">
-                    {{ disease['disease_name'] }}
+                <li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer hover:bg-cyan-800" id="{{ disease['id'] }}" data-specialty="{{ disease['specialty'] }}">
+                    {{ disease['name'] }}
                 </li>
                 {% endfor %}
             </ul>
         </div>
         <!-- clinics -->
-        <div class="w-full max-w-[1680px] xl:mx-auto flex flex-row flex-wrap justify-between items-stretch gap-8" id="clincs">
+        <div class="w-full max-w-[1680px] xl:mx-auto flex flex-row flex-wrap justify-between items-stretch gap-8" id="clinics">
             <!-- reservation message -->
             <div class="w-full shrink-0 m-0 p-0 text-center hidden" id="reservation_message">
                 <h3 class="w-full md:w-1/2 text-xl md:text-2xl text-center text-opacity-75"></h3>

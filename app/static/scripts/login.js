@@ -20,5 +20,6 @@ $(document).ready(() => {
         console.log('Geolocation is not supported by this browser.');
         $('#pop-up').removeClass('border-cyan-950').addClass('border-red-700');
         $('#pop-up p').text('Geolocation is not supported by this browser. Please choose another browser.');
+        $('#pop-up').removeClass('hidden').addClass('flex');
     }
 });

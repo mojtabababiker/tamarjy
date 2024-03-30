@@ -1,31 +1,44 @@
 $(document).ready(() => {
     // by default the first disease is selected and the clinics for that disease are displayed
     $('#diseases_nav').children().first().addClass('bg-cyan-950').removeClass('bg-cyan-800');
-    const specialty = [];  // the selected and displayed specialties
+    let specialty = [];  // the selected and displayed specialties
     const url = 'http://localhost:5050/api/v1';
-    const userId = $('#user_id').data('userId');
+    const userId = $('#user_id').data('userid');
     specialty.push($('#diseases_nav').children().first().data('specialty'));
     // set a click event for each disease that will display the clinics for it
     // using the clinics API endpoint TODO: add the this endpoint to the backend
     $('#diseases_nav').children().each((index, element) => {
+        console.log(element);
         $(element).on('click', () => {
             let skip = false;  // flag to skip the specialty if it is already selected TODO: add this feature
             // set the selected disease as active and the others as inactive
-            $('#diseases_nav').children().each((index, element) => {
-                $(element).addClass('bg-cyan-800').removeClass('bg-cyan-950');
+            $('#diseases_nav').children().each((index, i) => {
+                $(i).addClass('bg-cyan-800').removeClass('bg-cyan-950');
             });
-            $(this).addClass('bg-cyan-950').removeClass('bg-cyan-800');
+            $(element).addClass('bg-cyan-950').removeClass('bg-cyan-800');
             // push the selected specialty to the specialty array if it's not already there
-            specialty.includes($(this).data('specialty')) ? skip = true : specialty.push($(this).data('specialty'));
-            if (!skip) {
+            if (specialty.includes($(element).data('specialty'))) {
+                skip = true;
+            } else {
+                specialty.push($(element).data('specialty'));
+                skip = false;
+            }
+            console.log(specialty);
+            if (true) {
                 // get the clinics for the selected specialty
-                $.get(url + `/clinics?specialty=${$(this).data('specialty')}&user_id=${userId}`, (data) => {
-                    if (data.status === 'success') {
+                $.get(url + `/clinics?specialty=${$(element).data('specialty')}&user_id=${userId}`, (data) => {
+                    console.log(data.data);
+                    if (data.status) {
                         // TODO: cache the clinics data to avoid multiple requests
                         // clear the clinics div
                         $('#clinics').html('');
+                        $('#clinics').html(`<!-- reservation message --> 
+                        <div class="w-full shrink-0 m-0 p-0 text-center hidden" id="reservation_message">
+                            <h3 class="w-full md:w-1/2 text-xl md:text-2xl text-center text-opacity-75"></h3>
+                        </div>`);
+                        console.log("status: ", data.status);
                         // append the clinics to the clinics div
-                        data.forEach((clinic) => {
+                        data.data.forEach((clinic) => {
                             // TODO: add the clinic available appointments element (date and time)
                             $('#clinics').append(
                                 `<div class="w-full h-72 md:h-80 md:w-[30%] m-2 md:m-0 rounded-lg border-2 border-opacity-65 border-cyan-700
@@ -52,30 +65,32 @@ $(document).ready(() => {
                         // TODO: add a message to the user if there are no clinics for the selected specialty
                         alert(data.error);
                     }
-                }
-            )} else {
+                }).then(() => {
+                    // reserve button click event
+                    $('.reserve').each((index, element) => {
+                        $(element).on('click', () => {
+                            const clinicId = $(element).data('clinicId');
+                            // reserve an appointment for the user
+                            // TODO: add the date selected by the user to the request
+                            // $.ajax
+                            $.post(url + '/clinics/reserve', JSON.stringify({clinic_id: clinicId, user_id: userId}), (data) => {
+                                if (data.status === 'success') {
+                                    alert(data.message);
+                                    $('#reservation_message h3').addClass('text-green-500').text(data.message);
+                                    $('#reservation_message').removeClass('hidden').addClass('block');
+                                } else {
+                                    alert(data.error);
+                                    $('#reservation_message h3').addClass('text-red-500') .text(data.error);
+                                    $('#reservation_message').removeClass('hidden').addClass('block');
+                                }
+                            });
+                        });
+                    });
+                })
+            } else {
                 // TODO: load the clinics from the cache
                 alert('Specialty already selected');
             };
-        });
-    });
-    // reserve button click event
-    $('.reserve').each((index, element) => {
-        element.on('click', () => {
-            const clinicId = $(this).data('clinicId');
-            // reserve an appointment for the user
-            // TODO: add the date selected by the user to the request
-            $.post(url + '/clinics/reserve', JSON.stringify({clinic_id: clinicId, user_id: userId}), (data) => {
-                if (data.status === 'success') {
-                    alert(data.message);
-                    $('#reservation_message h3').addClass('text-green-500').text(data.message);
-                    $('#reservation_message').removeClass('hidden').addClass('block');
-                } else {
-                    alert(data.error);
-                    $('#reservation_message h3').addClass('text-red-500') .text(data.error);
-                    $('#reservation_message').removeClass('hidden').addClass('block');
-                }
-            });
         });
     });
 });

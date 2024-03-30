@@ -22,9 +22,11 @@ def reserve():
     Return all the clinics that are near the user for the specified disease specialty
     """
     # a list containing the diseases ids that the user has
-    diseases_id = request.headers.get('Diseases-Ids', [], type=list)
-    if not diseases_id or len(diseases_id) == 0:
-        diseases_id = request.cookies.get('Diseases-Ids', [], type=list)
+    diseases_id = request.headers.get('Diseases-Ids', "", type=str).split(', ')
+    print("reserve headers ==> ", diseases_id)
+    if not diseases_id or len(diseases_id[0]) == 0:
+        diseases_id = json.loads(request.cookies.get('Diseases-Ids', ''))
+        print("reserve cookie ==> ", diseases_id)
     diseases = []
     for disease_id in diseases_id:
         try:
@@ -41,18 +43,19 @@ def reserve():
         clinics = storage.get("Clinic")
 
     # filter the clinics to the clinics that are near the user
-    clinics = [clinic for clinic in clinics if abs(clinic.address - current_user.address) <= 0.005]
+    clinics = [clinic for clinic in clinics if abs(clinic.address - current_user.address) <= 0.055]
     return render_template('clinics.html', diseases=diseases, clinics=clinics)
 
 @app.route('/set_cookie', methods=['GET'])
 def set_cookie():
     """set the diseases cookie"""
-    # if Disease-Ids in request headers add them to cookies                                         
-    diseases_id = request.headers.get('Diseases-Ids', [], type=list)
-    if diseases_id:
+    # if Disease-Ids in request headers add them to cookies
+    diseases_id = request.headers.get('Diseases-Ids', '', type=str).split(', ')
+    if diseases_id and len(diseases_id) >= 1:
         res = make_response({"status": "seccuss"}, 200)
         diseases_id = json.dumps(diseases_id)
-        res.set_cookie('Diseases-Ids', diseases_id, max_age=600)
+        print("set_cookie ==> ", diseases_id)
+        res.set_cookie('Diseases-Ids', diseases_id, max_age=600, samesite='None')
         return res
     return make_response({"error": "no cookie made"}, 400)
 
@@ -71,27 +74,29 @@ def login():
                 user.latitude = request.form.get('latitude', user.latitude)
                 user.longitude = request.form.get('longitude', user.longitude)
                 user.save()  # a proper bug here
-                return redirect(url_for(next_page.split('/')[-1]))
+                # return redirect(url_for(next_page.split('/')[-1]))
+                return redirect(url_for('reserve'))
             flash('Invalid email or password')
             return render_template('login.html', form=form, next_page=next_page)
 
-        except Exception:  # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
+            print(e)
             flash('Invalid email or password', 'danger')
             for field, errors in form.errors.items():
                 flash(f"{field}: {errors}", 'danger')
             return render_template('login.html', form=form, next_page=next_page)
 
-    if '/login' in request.url:
-        return render_template('login.html', form=form, next_page='home')
+    # if '/login' == request.path:
+    #     return render_template('login.html', form=form, next_page='home')
     # if Disease-Ids in request headers add them to cookies
-    diseases_id = request.headers.get('Diseases-Ids', [], type=list)
-    if diseases_id:
-        res = make_response(render_template(
-            'login.html',form=form, next_page=request.url.split('/')[-1])
-            )
-        diseases_id = json.dumps(diseases_id)
-        res.set_cookie('Diseases-Ids', diseases_id, max_age=600)
-        return res
+    # diseases_id = request.headers.get('Diseases-Ids', '', type=str).split(', ')
+    # if diseases_id:
+    #     res = make_response(render_template(
+    #         'login.html',form=form, next_page=request.url.split('/')[-1])
+    #         )
+    #     diseases_id = json.dumps(diseases_id)
+    #     res.set_cookie('Diseases-Ids', diseases_id, max_age=600)
+    #     return res
     return render_template('login.html', form=form, next_page=request.url.split('/')[-1])
 
 @app.route('/register', methods=['GET', 'POST'])

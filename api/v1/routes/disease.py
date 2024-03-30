@@ -3,8 +3,11 @@
 import json
 from flask import jsonify, request, abort, make_response
 from api.v1.routes import app_routes
-from models import storage, predictor
+from models import storage
+from models.ml_models.predictor import Predictor
 
+
+predictor = Predictor() # create an instance of the machine learning Predictor class
 
 @app_routes.route('/predict', methods=['POST'])
 def predict():

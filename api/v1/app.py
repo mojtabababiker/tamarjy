@@ -12,7 +12,6 @@ app.register_blueprint(app_routes)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
-
 @app.teardown_appcontext
 def close_session(exception):
     """Close session"""

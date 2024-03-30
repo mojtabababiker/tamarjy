@@ -21,12 +21,13 @@ def get_clinics():
         return jsonify({"error": "Authentication problem please re login and try again"}), 404
     user = user[0]
     clinics = storage.get('Clinic', filters={'specialty': specialty})
+    print(clinics)
     if not clinics:
         return jsonify({"error": "No clinics found for the provided Disease"}), 400
 
     clinics_list = []
     # filter the clinics to the clinics that are near the user
-    clinics = [clinic for clinic in clinics if abs(clinic.address - user.address) <= 0.005]
+    clinics = [clinic for clinic in clinics if abs(clinic.address - user.address) <= 0.055]
     for clinic_ in clinics:
         clinic_dict = {
             'id': clinic_.id,
@@ -37,7 +38,8 @@ def get_clinics():
         }
         clinics_list.append(clinic_dict)
 
-    return jsonify({"data": clinics_list}), 200
+    print(clinics_list)
+    return jsonify({"data": clinics_list, "status": "success"}), 200
 
 @app_routes.route('clinics/reserve', methods=['POST'])
 def reserve_clinic():

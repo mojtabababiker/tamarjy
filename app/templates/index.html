@@ -17,6 +17,13 @@
         <section class="min-w-full w-fit min-h-screen h-fit relative flex flex-col justify-normal bg-cyan-900
                         bg-[url('/static/images/icons/headr_bg.svg')] bg-[length:100%_20%] bg-no-repeat bg-left-bottom
                         ">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="container max-w-[1680px] xl:mx-auto flex justify-center items-center text-slate-300 text-center p-2 bg-cyan-900">
+                                    <p class="text-2xl">{{ messages[0] }}</p>
+                                </div>
+                            {% endif %}
+                        {% endwith %}
             <header class="container max-w-[1680px] xl:mx-auto flex justify-between
                             items-stretch text-slate-300 mt-5 md:mt-4 px-0 md:px-9">
                 <!-- logo -->

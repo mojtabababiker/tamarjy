@@ -69,16 +69,22 @@ $(document).ready(() => {
                     // reserve button click event
                     $('.reserve').each((index, element) => {
                         $(element).on('click', () => {
-                            const clinicId = $(element).data('clinicId');
+                            const clinicId = $(element).data('clinicid');
+                            console.log(clinicId);
                             // reserve an appointment for the user
                             // TODO: add the date selected by the user to the request
-                            // $.ajax
-                            $.post(url + '/clinics/reserve', JSON.stringify({clinic_id: clinicId, user_id: userId}), (data) => {
-                                if (data.status === 'success') {
+                            $.ajax({
+                                url: url + '/clinics/reserve',
+                                type: 'POST',
+                                data: JSON.stringify({clinic_id: clinicId, user_id: userId}),
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                success: (data) => {
                                     alert(data.message);
                                     $('#reservation_message h3').addClass('text-green-500').text(data.message);
                                     $('#reservation_message').removeClass('hidden').addClass('block');
-                                } else {
+                                },
+                                error: (data) => {
                                     alert(data.error);
                                     $('#reservation_message h3').addClass('text-red-500') .text(data.error);
                                     $('#reservation_message').removeClass('hidden').addClass('block');

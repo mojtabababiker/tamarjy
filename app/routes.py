@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Routes module that holds all the routes for the application"""
 import json
+from json import JSONDecodeError
 from flask import redirect, render_template, request, make_response
 from flask import flash, url_for
 from flask_login import login_user, login_required
@@ -22,11 +23,16 @@ def reserve():
     Return all the clinics that are near the user for the specified disease specialty
     """
     # a list containing the diseases ids that the user has
-    diseases_id = request.headers.get('Diseases-Ids', "", type=str).split(', ')
-    print("reserve headers ==> ", diseases_id)
-    if not diseases_id or len(diseases_id[0]) == 0:
-        diseases_id = json.loads(request.cookies.get('Diseases-Ids', ''))
-        print("reserve cookie ==> ", diseases_id)
+    try:
+        diseases_id = request.headers.get('Diseases-Ids', "", type=str).split(', ')
+        print("reserve headers ==> ", diseases_id)
+        if not diseases_id or len(diseases_id[0]) == 0:
+            diseases_id = json.loads(request.cookies.get('Diseases-Ids', ''))
+            print("reserve cookie ==> ", diseases_id)
+    except JSONDecodeError:
+        # if there are no cookies or headers session is not valid
+        flash("Session Expired please try again")
+        return redirect(url_for('home'))
     diseases = []
     for disease_id in diseases_id:
         try:
@@ -55,7 +61,7 @@ def set_cookie():
         res = make_response({"status": "seccuss"}, 200)
         diseases_id = json.dumps(diseases_id)
         print("set_cookie ==> ", diseases_id)
-        res.set_cookie('Diseases-Ids', diseases_id, max_age=600, samesite='None')
+        res.set_cookie('Diseases-Ids', diseases_id, max_age=600)
         return res
     return make_response({"error": "no cookie made"}, 400)
 

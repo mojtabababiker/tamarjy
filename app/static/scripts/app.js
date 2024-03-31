@@ -43,7 +43,11 @@ $(document).ready(() => {
     const diseasePrec = $('#disease_prec p'); // Disease precautions (p) paragraph
 
     function getDiseasesInfo(e){
-	console.log($(this))
+	    console.log($(this))
+        $('#diseases_nav li').each((index, e) => {
+            $(e).addClass('bg-cyan-900').removeClass('bg-cyan-700');
+        });
+        $(this).addClass('bg-cyan-700').removeClass('bg-cyan-900');
         $.ajax({
             url: url + '/diseases/' + $(this).attr('id'),
             type: 'GET',
@@ -75,9 +79,12 @@ $(document).ready(() => {
                     // list of objects [{disease_name: 'name', disease_id: '1234-abcd', probability: 0.0}]
                     const diseases = data.diseases;
 		            console.log(diseases)
+                    if (diseases.length > 0){
+                        diseasesNav.empty();
+                    }
                     diseases.forEach((disease) => {
                         diseasesNav.append(
-                            '<li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer"' +
+                            '<li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer bg-cyan-900 hover:bg-cyan-700"' +
                             `id=${disease.disease_id}>` + disease.disease_name + '</li>'
                             )
                         // Add click event to each disease item

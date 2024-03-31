@@ -20,12 +20,12 @@
                         {% with messages = get_flashed_messages() %}
                             {% if messages %}
                                 <div class="container max-w-[1680px] xl:mx-auto flex justify-center items-center text-slate-300 text-center p-2 bg-cyan-900">
-                                    <p class="text-2xl">{{ messages[0] }}</p>
+                                    <p class="text-lg md:text-xl lg:text-2xl">{{ messages[0] }}</p>
                                 </div>
                             {% endif %}
                         {% endwith %}
-            <header class="container max-w-[1680px] xl:mx-auto flex justify-between
-                            items-stretch text-slate-300 mt-5 md:mt-4 px-0 md:px-9">
+            <header class="container max-w-[1680px] xl:mx-auto flex justify-between fixed top-0 z-50
+                            items-stretch text-slate-300 py-3 md:py-4 px-0 md:px-9 bg-cyan-900">
                 <!-- logo -->
                 <div class="m-0 p-0 w-28 max-w-56 md:w-full">
                     <a href="/" class="decoration-0 p-0 mx-auto md:m-0 w-100 h-100">
@@ -40,7 +40,7 @@
                     </button>
                     <nav class="m-0 p-0 hidden fixed left-0 md:left-auto top-16 md:top-auto md:flex rounded-lg md:relative flex-col md:flex-row 
                                 justify-around items-center md:justify-end md:items-center bg-cyan-900
-                                md:gap-6 h-1/2 w-screen md:h-auto md:w-auto md:bg-inherit" id="nav_bar">
+                                md:gap-6 h-[40%] w-screen md:h-auto md:w-auto md:bg-inherit" id="nav_bar">
                         <a href="#predictor" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Services</a>
                         <a href="#about_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">About</a>
                         <a href="#contact_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Get in touch</a>
@@ -110,7 +110,7 @@
             </div>
             <!-- predictor results -->
             <div class="container hidden max-w-[1680px] xl:mx-auto flex-col justify-between items-stretch
-                        overflow-hidden text-slate-800 mb-10 mt-5 md:mt-4 px-2 md:px-9" id="results">
+                        overflow-hidden text-slate-800 mb-10 pt-32 md:pt-40 px-2 md:px-9" id="results">
                 <div class="container flex flex-col justify-center
                             items-stretch">
                     <h2 class="text-2xl md:text-4xl text-center text-opacity-75">Symptoms based prediction</h2>
@@ -119,8 +119,8 @@
                 <!-- results section -->
                 <div class="container overflow-hidden flex flex-col ustify-center md:mt-8">
                     <!-- results nav -->
-                    <div class="w-full overflow-scroll flex flex-row p-0 m-0 mb-5 bg-cyan-900 text-slate-200 text-center">
-                        <ul class="w-full overflow-scroll decoration-0 flex flex-row p-0 m-0 text-inherit bg-inherit" id="diseases_nav">
+                    <div class="w-full overflow-scroll flex flex-row p-0 m-0 mb-5 text-slate-200 text-center scrollbar-none">
+                        <ul class="w-full overflow-scroll decoration-0 flex flex-row p-0 m-0 text-inherit bg-inherit scrollbar-none" id="diseases_nav">
                         </ul>
                     </div>
                     <!-- results content -->

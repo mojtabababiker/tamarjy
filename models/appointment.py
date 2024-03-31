@@ -2,6 +2,7 @@
 """holds the appointment model class"""
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime, ForeignKey
+from models import TIME_FORMAT
 from models.base_model import BaseModel, Base
 
 
@@ -14,7 +15,6 @@ class Appointment(BaseModel, Base):
 
     def __init__(self, *args, **kwargs):
         """initiate the appointment model"""
-        from models import TIME_FORMAT
         if 'date' in kwargs:
             self.date = datetime.strptime(kwargs['date'], TIME_FORMAT)
         super().__init__(*args, **kwargs)
@@ -23,3 +23,8 @@ class Appointment(BaseModel, Base):
     def time(self):
         """get the time of the appointment in the format HH:MM"""
         return self.date.strftime('%H:%M')
+
+    @property
+    def day(self):
+        """get the day of the appointment in the format YYYY-MM-DD"""
+        return self.date.strftime('%Y-%m-%d')

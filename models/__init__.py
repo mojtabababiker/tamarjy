@@ -6,4 +6,4 @@ from models.engine.db_storage import DatabaseStorage
 
 storage = DatabaseStorage() # create an instance of the DatabaseStorage class
 storage.reload() # reload the data from the database
-TIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%f' # set the time format
+TIME_FORMAT = '%Y-%m-%dT%H:%M' # set the time format

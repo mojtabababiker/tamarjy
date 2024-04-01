@@ -96,7 +96,7 @@ class Predictor:
         symptoms_array = np.array(symptoms_array).reshape(1, -1)
         return symptoms_array
 
-    def __enhance_prediction(self, result, tol:float=0.15) -> dict:
+    def __enhance_prediction(self, result, tol:float=0.25) -> dict:
         """Get the top predicted disease based on their probabilities and the tolerance (tol).
 
         Args:
@@ -121,7 +121,7 @@ class Predictor:
             # log it
             return {}
         # if the selected sensitivity (tol) was too high for the current symptoms
-        if not predictions or len(predictions) <= 2:
+        if not predictions or len(predictions) <= 1:
             # recursively call the method with tol - the prob of one disease (0.0076)
             predictions = self.__enhance_prediction(result, tol=tol - 0.008)
         return predictions

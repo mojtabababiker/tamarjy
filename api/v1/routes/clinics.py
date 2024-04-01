@@ -23,7 +23,6 @@ def get_clinics():
         return jsonify({"error": "Authentication problem please re login and try again"}), 404
     user = user[0]
     clinics = storage.get('Clinic', filters={'specialty': specialty})
-    print(clinics)
     if not clinics:
         return jsonify({"error": "No clinics found for the provided Disease"}), 400
 
@@ -40,12 +39,12 @@ def get_clinics():
         }
         clinics_list.append(clinic_dict)
 
-    print(clinics_list)
     return jsonify({"data": clinics_list, "status": "success"}), 200
 
 @app_routes.route('clinics/reserve', methods=['POST'])
 def reserve_clinic():
     """Reserve a clinic for the user"""
+    TIME_FORMAT = "%Y-%m-%dt%H:%M"
     data = request.get_json()
     if not data:
         return jsonify({"error": "Not a JSON"}), 400
@@ -53,6 +52,9 @@ def reserve_clinic():
         return jsonify({"error": "Missing clinic_id"}), 400
     if 'user_id' not in data:
         return jsonify({"error": "Missing user_id"}), 400
+
+    if 'date' not in data:
+        return jsonify({"error": "Missing date"}), 400
 
     clinic = storage.get('Clinic', filters={'id': data['clinic_id']})
     if not clinic or not clinic[0]:
@@ -62,13 +64,29 @@ def reserve_clinic():
     if not user or not user[0]:
         return jsonify({"error": "User not found"}), 404
 
-    # TODO: check if the user already has an appointment with the clinic  # pylint: disable=fixme
-    # TODO: check if the clinic is available at the provided date  # pylint: disable=fixme
+    date = data['date']
+    if "Today" in date:
+        day = datetime.now().strftime(TIME_FORMAT)
+        date = day.replace(day.split('t')[1], date.split('t')[1])
+    elif "Tomorrow" in date:
+        day = datetime.now()
+        to_next_day = 24 - (day.hour + (day.minute / 60))
+        day += timedelta(hours=to_next_day)
+        day = datetime.now().strftime(TIME_FORMAT)
+        date = day.replace(day.split('t')[1], date.split('t')[1])
+    else:
+        try:
+            datetime.strptime(date, TIME_FORMAT)
+        except Exception:
+            return jsonify({"error": "Invalid date format"}), 400
+
+    date = date.replace('t', 'T')
     appointment_ = Appointment(
         user_id=user[0].id,
         clinic_id=clinic[0].id,
-        date=data.get('date', datetime.now().strftime(TIME_FORMAT))
-    )
+        date=date)
+    appointment_.date_ = date
+
     appointment_.save()
     return jsonify({"message": "Appointment reserved successfully"}), 201
 
@@ -96,10 +114,6 @@ def get_clinic_date(clinic_id):
                 dates.append(date.strftime(date_format))
         return jsonify({"dates": dates, "status": "success"}), 200
     # day provided in the request
-    # get the appointments for the clinic
-    appointments = clinic.reservations
-    # get all the appointments for the provided day
-    appointments_time = [appointment.time for appointment in appointments if appointment.day == day]
     time_format = "%H:%M"
     times = []
     if day == "Today":
@@ -117,19 +131,20 @@ def get_clinic_date(clinic_id):
         day = datetime.now()
         to_next_day = 24 - (day.hour + (day.minute / 60))
         day += timedelta(hours=to_next_day)
-        print(day)
 
     else:
         try:
-            day = datetime.strptime(day ,TIME_FORMAT)
+            day = datetime.strptime(day ,"%Y-%m-%d")
         except Exception:
             return jsonify({"error": "Invalid date format"}), 400
 
     current_day = day.day
+    # get the appointments for the clinic
+    appointments = clinic.reservations
+    # get all the appointments for the provided day
+    appointments_time = [appointment.time for appointment in appointments if appointment.day == day.strftime("%Y-%m-%d")]
     for i in range(24):
         date = day + timedelta(hours=i)
-        print(date.day)
-        print(date.hour)
         if current_day != date.day:
             break
         if (date.strftime(time_format) not in appointments_time  and date.hour >= 16):

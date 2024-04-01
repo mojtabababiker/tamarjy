@@ -21,7 +21,7 @@ class DatabaseStorage:
             environ['MYSQL_HOST'],
             environ['MYSQL_DB']
         )
-        self.__engine = create_engine(url)
+        self.__engine = create_engine(url, pool_pre_ping=True)
 
     def reload(self):
         """Create all the Base model models and Reload

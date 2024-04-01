@@ -78,6 +78,21 @@ $(document).ready(() => {
                     );
                 } else {
                     // TODO: add a message to the user if there are no clinics for the selected specialty
+                    $('#clinics').html('');
+                    Swal.fire({
+                        title: 'No clinics available on your region',
+                        text: 'Please try again later',
+                        icon: 'info',
+                        confirmButtonText: 'Back home',
+                        confirmButtonColor: '#3498db',
+                        showCancelButton: true,
+                        cancelButtonText: 'Choose another',
+                    }).then(() => {
+                        if (result.dismiss === Swal.DismissReason.cancel) {
+                            return;
+                        }
+                        window.location.href = '/home';
+                    });
                 }
             })
             .then(() => {
@@ -173,7 +188,21 @@ $(document).ready(() => {
                 // reserve an appointment for the user
                 // TODO: add the date selected by the user to the request
                 if (!date) {
-                    alert('Please select a date');
+                    // alert('Please select a date');
+                    Swal.fire({
+                        title: 'Please select a date',
+                        text: 'The appointment date is required to reserve a clinic ',
+                        icon: 'info',
+                        confirmButtonText: 'Choose',
+                        confirmButtonColor: '#3498db',
+                        showCancelButton: true,
+                        cancelButtonText: 'Back home',
+                    }).then(() => {
+                        if (result.dismiss === Swal.DismissReason.cancel) {
+                            return;
+                        }
+                        window.location.href = '/home';
+                    });
                     $('#reservation_message h3').addClass('text-red-500').text('Please select a date');
                     $('#reservation_message').removeClass('hidden').addClass('block');
                 }
@@ -185,10 +214,38 @@ $(document).ready(() => {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: (data) => {
+                        Swal.fire({
+                            title: 'Reservation set successfully',
+                            text: `Your appointment has been set successfully due ${date} at ${data.time}`,
+                            icon: 'info',
+                            confirmButtonText: 'Choose another',
+                            confirmButtonColor: '#3498db',
+                            showCancelButton: true,
+                            cancelButtonText: 'Back home',
+                        }).then(() => {
+                            if (result.dismiss === Swal.DismissReason.cancel) {
+                                return;
+                            }
+                            window.location.href = '/home';
+                        });
                         $('#reservation_message h3').addClass('text-green-500').text(data.message);
                         $('#reservation_message').removeClass('hidden').addClass('block');
                     },
                     error: (data) => {
+                        Swal.fire({
+                            title: 'Error setting the reservation',
+                            text: `${data.error}`,
+                            icon: 'info',
+                            confirmButtonText: 'Try again',
+                            confirmButtonColor: '#3498db',
+                            showCancelButton: true,
+                            cancelButtonText: 'Back home',
+                        }).then(() => {
+                            if (result.dismiss === Swal.DismissReason.cancel) {
+                                return;
+                            }
+                            window.location.href = '/home';
+                        });
                         $('#reservation_message h3').addClass('text-red-500').text(data.error);
                         $('#reservation_message').removeClass('hidden').addClass('block');
                     }

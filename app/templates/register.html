@@ -9,25 +9,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="/static/images/icons/favicon.png" type="image/x-icon">
-    <script src="/static/scripts/login.js"></script>
+    <script type="module" src="/static/scripts/login.js"></script>
     <link rel="stylesheet" href="/static/styles/main.css">
 </head>
 <body class="font-['Roboto Slab'] overflow-x-hidden md:bg-slate-200 bg-cyan-900">
-    <section class="container relative border-0 rounded-lg md:p-28 mx-auto flex justify-center align-middle items-center bg-cyan-900 ">
+    <section class="container mx-auto border-0 rounded-lg md:p-28flex justify-center align-middle items-center bg-cyan-900 ">
         <!-- login form -->
-        <!-- pop-up window -->
-        <div class="w-full max-w-[280px] h-[240px] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                    border-4 border-cyan-950 rounded-lg bg-slate-200 text-cyan-950 m-0 p-2
-                    flex-col justify-center items-stretch hidden" id="pop-up">
-            <h1 class="text-lg md:text-2xl text-center font-semibold mb-5">Press allow location access</h1>
-            <p class="text-xs md:text-lg text-justify">
-                Tamarjy uses your location to allocate the nearest health care providers. 
-                Please allow location access to continue.
-            </p>
-        </div>
-        <div class="w-full md:w-1/2 flex justify-center items-center align-middle px-4 py-3
-                    absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div class="w-full md:w-2/3 flex flex-col md:flex-row justify-center items-center align-middle px-4 py-8
+                    absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  bg-cyan-900 rounded-lg">
             <!-- form section -->
             <form method="post" action="{{ url_for('register') }}" enctype="multipart/form-data"
                     class="flex flex-col gap-3 w-full mx-auto">
@@ -42,38 +33,62 @@
                         </div>
                     {% endif %}
                 {% endwith %}
-                <div class="w-full p-0 m-0 border-0 flex flex-col md:flex-row gap-x-4 justify-between md:gap-3">
-                    <label for="first_name" class="text-slate-300">First Name</label>
-                    {{ form.first_name(class="p-2 rounded-lg border-2 border-slate-300") }}
-                    <label for="last_name" class="text-slate-300">Last Name</label>
-                    {{ form.last_name(class="p-2 rounded-lg border-2 border-slate-300") }}
+                <!-- Name -->
+                <div class="w-full p-0 m-0 border-0 flex flex-col md:flex-row gap-x-4 justify-between items-center md:gap-3">
+                    <div class="w-full max-w-80 md:w-auto p-0 m-0 flex flex-col md:flex-row justify-center items-center">
+                        <label for="first_name" class="text-slate-300">First Name</label>
+                        {{ form.first_name(class="w-full p-2 rounded-lg border-2 border-slate-300") }}
+                    </div>
+                    <div class="w-full max-w-80 md:w-auto p-0 m-0 flex flex-col md:flex-row justify-center items-center">
+                        <label for="last_name" class="text-slate-300">Last Name</label>
+                        {{ form.last_name(class="w-full p-2 rounded-lg border-2 border-slate-300") }}
+                    </div>
                 </div>
-                <div class="w-full p-0 m-0 border-0 flex flex-col md:flex-row gap-x-4 justify-between md:gap-3">
-                    <label for="email" class="text-slate-300">Email</label>
-                    {{ form.email(class="p-2 rounded-lg border-2 border-slate-300") }}
-                    <label for="phone" class="text-slate-300">Phone</label>
-                    {{ form.phone(class="p-2 rounded-lg border-2 border-slate-300") }}
+                <!-- Phone and mail -->
+                <div class="w-full p-0 m-0 border-0 flex flex-col md:flex-row gap-x-4 justify-between items-center md:gap-3">
+                    <div class="w-full max-w-80 md:w-auto p-0 m-0 flex flex-col md:flex-row justify-center items-center">
+                        <label for="phone" class="text-slate-300">Phone Number</label>
+                        {{ form.phone(class="w-full p-2 rounded-lg border-2 border-slate-300") }}
+                    </div>
+                    <div class="w-full max-w-80 md:w-auto p-0 m-0 flex flex-col md:flex-row justify-center items-center">
+                        <label for="email" class="text-slate-300">Email Address</label>
+                        {{ form.email(class="w-full p-2 rounded-lg border-2 border-slate-300") }}
+                    </div>
                 </div>
-                <div class="w-full p-0 m-0 border-0 flex flex-col md:flex-row gap-x-4 justify-between md:gap-3">
-                    <label for="password" class="text-slate-300">Password</label>
-                    {{ form.password(class="p-2 rounded-lg border-2 border-slate-300") }}
-                    <label for="confirm_password" class="text-slate-300">Confirm Password</label>
-                    {{ form.confirm_password(class="p-2 rounded-lg border-2 border-slate-300") }}
+                <!-- password -->
+                <div class="w-full p-0 m-0 border-0 flex flex-col md:flex-row gap-x-4 justify-between items-center md:gap-3">
+                    <div class="w-full max-w-80 md:w-auto gap-2 p-0 m-0 flex flex-col md:flex-row justify-center items-center">
+                        <label for="password" class="text-slate-300">Password</label>
+                        {{ form.password(class="w-full p-2 rounded-lg border-2 border-slate-300") }}
+                    </div>
+                    <div class="w-full max-w-80 md:w-auto gap-2 p-0 m-0 flex flex-col md:flex-row justify-center items-center">
+                        <label for="confirm_password" class="text-slate-300">Confirm Password</label>
+                        {{ form.confirm_password(class="w-full p-2 rounded-lg border-2 border-slate-300") }}
+                    </div>
                 </div>
+                <!-- gender, pickup image, ... -->
                 <div class="w-full p-0 m-0 border-0 flex flex-col md:flex-row gap-x-4 justify-between md:gap-3">
-                    <label for="gender" class="text-slate-300">Gender</label>
-                    {{ form.gender(class="p-2 rounded-lg border-2 border-slate-300") }}
-                    <label for="age" class="text-slate-300">Age</label>
-                    {{ form.age(class="p-2 rounded-lg border-2 border-slate-300") }}
-                    <label for="profile_picture" class="text-slate-300">Profile Picture</label>
-                    {{ form.profile_image(class="p-2 rounded-lg border-2 border-slate-300") }}
+                    <div class="w-full gap-2 p-0 m-0 flex justify-center">
+                        <label for="gender" class="text-slate-300">Gender</label>
+                        {{ form.gender(class="p-2 rounded-lg border-2 text-sm border-slate-300 w-[60px]") }}
+                    </div>
+                    <div class="w-full gap-2 p-0 m-0 flex justify-center">
+                        <label for="age" class="text-slate-300">Age</label>
+                        {{ form.age(class="p-2 rounded-lg border-2 text-sm border-slate-300 w-[60px]") }}
+                    </div>
+                    <div class="w-full gap-2 p-0 m-0 flex justify-center">
+                        {{ form.profile_image(class="p-2 rounded-lg border-2 border-slate-300 hidden", id='pick_img') }}
+                        <button type="button" class="w-full p-2 border-2 text-slate-200 text-sm cursor-pointer border-cyan-900 rounded-lg bg-cyan-900 hover:bg-slate-200 hover:text-cyan-900" id="pick_img_btn">
+                            Pick Image</button>
+                    </div>
                 </div>
-                {{ form.submit(class='w-1/2 p-2 border-2 text-slate-200 text-lg cursor-pointer border-cyan-900 rounded-lg bg-cyan-900 hover:bg-slate-200 hover:text-cyan-900') }}
+
+                {{ form.submit(class='w-1/2 p-2 border-2 text-slate-200 text-sm cursor-pointer border-cyan-900 rounded-lg bg-cyan-900 hover:bg-slate-200 hover:text-cyan-900') }}
             </form>
             <!-- logo section -->
-            <div class="w-1/2 flex justify-center items-center">
+            <div class="w-1/2 flex justify-center items-center ">
                 <img src="/static/images/icons/tamarjy_slogan.png" alt="Tamarjy logo"
-                            class="w-full object-fill md:block  md:relative md:left-auto md:bottom-auto">
+                            class="w-full object-fill hidden md:block  md:relative md:left-auto md:bottom-auto">
             </div>
         </div>
     </section>

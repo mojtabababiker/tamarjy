@@ -9,22 +9,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="/static/images/icons/favicon.png" type="image/x-icon">
-    <script src="/static/scripts/login.js"></script>
+    <script type="module" src="/static/scripts/login.js"></script>
     <link rel="stylesheet" href="/static/styles/main.css">
 </head>
 <body class="flex justify-center items-center align-middle font-['Roboto Slab'] overflow-x-hidden md:bg-slate-200 bg-cyan-900">
-    <section class="container max-w-[1024px] border-0 rounded-lg md:p-28 mx-auto flex justify-center align-middle items-center relative bottom-1/2 translate-y-1/2 bg-cyan-900 ">
-        <!-- pop-up window -->
-        <div class="w-full max-w-[380px] h-[340px] z-50 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                    border-4 border-cyan-950 rounded-lg bg-slate-200 text-cyan-950 m-0 p-2
-                    flex-col justify-center items-stretch hidden" id="pop-up">
-            <h1 class="text-lg md:text-2xl text-center font-semibold mb-5">Press allow location access</h1>
-            <p class="text-xs md:text-lg text-justify">
-                Tamarjy uses your location to allocate the nearest health care providers. 
-                Please allow location access to continue.
-            </p>
-        </div>
+    <!-- pop-up window -->
+    <div class="w-full max-w-[380px] h-[340px] z-50 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                border-4 border-cyan-950 rounded-lg bg-slate-200 text-cyan-950 m-0 p-2
+                flex-col justify-center items-stretch hidden" id="pop-up">
+        <h1 class="text-lg md:text-2xl text-center font-semibold mb-5">Press allow location access</h1>
+        <p class="text-xs md:text-lg text-justify">
+            Tamarjy uses your location to allocate the nearest health care providers. 
+            Please allow location access to continue.
+        </p>
+    </div>
+    <section class="container max-w-[1024px] border-0 rounded-lg  flex justify-center align-middle items-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-cyan-900 ">
         <!-- login form -->
         <div class="w-full md:w-1/2 flex justify-center items-center align-middle px-4 py-3 relative">
             <form method="post" action="{{ url_for('login') }}" enctype="multipart/form-data"

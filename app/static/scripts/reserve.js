@@ -20,7 +20,7 @@ $(document).ready(() => {
     // by default the first disease is selected and the clinics for that disease are displayed
     $('#diseases_nav li').first().addClass('bg-cyan-700').removeClass('bg-cyan-900');
     let specialty = [];  // the selected and displayed specialties
-    const url = 'http://localhost:5050/api/v1';
+    const url = `http://${window.location.host}/api/v1`;
     const userId = $('#user_id').data('userid');
     specialty.push($('#diseases_nav').children().first().data('specialty'));
 
@@ -184,7 +184,6 @@ $(document).ready(() => {
         // get the date selected by the user
         getSelectedDate(clinicId)
             .then((date) => {
-                console.log(`===== After calling getSelectedDate =====`);
                 // reserve an appointment for the user
                 // TODO: add the date selected by the user to the request
                 if (!date) {
@@ -206,7 +205,6 @@ $(document).ready(() => {
                     $('#reservation_message h3').addClass('text-red-500').text('Please select a date');
                     $('#reservation_message').removeClass('hidden').addClass('block');
                 }
-                console.log(`from setReservation: ${date}`);
                 $.ajax({
                     url: url + '/clinics/reserve',
                     type: 'POST',

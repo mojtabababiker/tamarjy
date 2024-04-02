@@ -83,7 +83,7 @@ $(document).ready(() => {
                     }
                     diseases.forEach((disease) => {
                         diseasesNav.append(
-                            '<li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer bg-cyan-900 hover:bg-cyan-700"' +
+                            '<li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer bg-cyan-900 hover:bg-cyan-700 transition-all duration-300"' +
                             `id=${disease.disease_id}>` + disease.disease_name + '</li>'
                             )
                         // Add click event to each disease item

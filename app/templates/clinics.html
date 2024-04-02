@@ -14,48 +14,50 @@
         <link rel="stylesheet" href="/static/styles/main.css">
         <script type="module" src="/static/scripts/reserve.js"></script>
     </head>
-    <body class="bg-slate-200 font-[Roboto Slab] overflow-x-hidden">
+    <body class="text-slate-200 bg-cyan-900 font-[Roboto Slab] overflow-x-hidden">
         <!-- user id hidden tag -->
         <input type="hidden" id="user_id" data-userid="{{ current_user.id }}" value="">
         <!-- Header section -->
         <section class="w-full p-0 py-2 m-0 fixed top-0 z-50 bg-cyan-900">
             <header class="container max-w-[1680px] xl:mx-auto flex justify-between
-                           items-stretch text-slate-300 px-0 md:px-9">
+                           items-stretch text-slate-300 px-0 md:px-9 transition-all duration-300">
                 <!-- logo -->
                 <div class="m-0 p-0 w-28 max-w-56 md:w-full">
-                    <a href="/" class="decoration-0 p-0 mx-auto md:m-0 w-100 h-100">
+                    <a href="/" class="decoration-0 p-0 mx-auto md:m-0 w-100 h-100 transition-all duration-300">
                         <img src="/static/images/icons/tamarjy_logo.png" alt="Tamarjy logo"
                         class="p-0 m-0 w-full object-center hover:scale-95">
                     </a>
                 </div>
                 <!-- navbar -->
                 <div class="m-0 p-0 flex items-center align-middle z-40">
-                    <button class="block relative md:hidden z-50" id="toggler">
-                        <img src="/static/images/icons/menu_1.png" alt="Menu" class="w-10 pr-3" id="menu_img">
+                    <button class="block relative md:hidden z-50 transition-all duration-300" id="toggler">
+                        <img src="/static/images/icons/menu_1.png" alt="Menu" class="w-10 pr-3 transition-all duration-300" id="menu_img">
                     </button>
                     <nav class="m-0 p-0 hidden fixed left-0 md:left-auto top-10 md:top-auto z-50 md:flex rounded-lg md:relative flex-col md:flex-row 
                                 justify-around items-center md:justify-end md:items-center bg-cyan-900
                                 md:gap-6 h-1/2 w-screen md:h-auto md:w-auto md:bg-inherit" id="nav_bar">
-                        <a href="#predictor" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Services</a>
-                        <a href="#about_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">About</a>
-                        <a href="#contact_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Get in touch</a>
-                        <a href="/logout" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100">Logout</a>
+                        <a href="/?#predictor" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100 transition-all duration-300">Services</a>
+                        <a href="/?#about_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100 transition-all duration-300">About</a>
+                        <a href="/?#contact_us" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100 transition-all duration-300">Get in touch</a>
+                        <a href="/logout" class="decoration-0 w-screen md:w-auto pl-4 pb-2 md:p-0 text-3xl md:text-xl font-semibold border-0 border-b border-blue-200 md:border-0 hover:text-slate-100 focus:text-slate-100 transition-all duration-300">Logout</a>
                     </nav>
                 </div>
             </header>
         </section>
         <!-- clinics section -->
-        <section class="w-full p-0 m-0 mt-20 md:mt-40 text-slate-800 overflow-x-hidden">
+        <section class="w-full p-0 m-0 mt-20 md:mt-40 pb-10 text-slate-800 overflow-x-hidden 
+                        bg-slate-200">
             <!-- headline -->
-            <div class="container max-w-[1680px] xl:mx-auto flex flex-col justify-center align-middle items-center">
-                <h2 class="text-2xl md:text-3xl text-center text-opacity-75">Clinics</h2>
-                <h3 class="text-3xl md:text-5xl text-center text-opacity-65">Our Legit Health Providers</h3>
+            <div class="w-full mx-auto flex flex-col justify-center align-middle items-center p-8 pb-0 md:p-4
+            bg-[url('/static/images/icons/headr_bg.svg')] bg-[length:100%_100%] bg-no-repeat bg-left-top bg-cyan-900">
+                <h2 class="text-2xl md:text-3xl text-center text-opacity-75 mt-4">Clinics</h2>
+                <h3 class="text-3xl md:text-4xl lg:text-5xl text-center text-opacity-65 mt-3 w-2/3 md:w-full">Our Legit Health Providers</h3>
             </div>
             <!-- Disease nav -->
-            <div class="container max-w-[1680px] xl:mx-auto overflow-scroll flex flex-row p-0 m-0 mt-16 mb-5 text-slate-200 text-center scroll-m-0 scrollbar-none">
+            <div class="container max-w-[1680px] xl:mx-auto relative z-30 overflow-scroll flex flex-row p-0 mt-[-6px] m-0 pt-16 mb-5 text-slate-200 bg-slate-200 text-center scroll-m-0 scrollbar-none">
                 <ul class="w-full overflow-scroll decoration-0 flex flex-row p-0 m-0 text-inherit bg-inherit scrollbar-none" id="diseases_nav">
                     {% for disease in diseases %}
-                    <li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer bg-cyan-900 hover:bg-cyan-800" id="{{ disease['id'] }}" data-specialty="{{ disease['specialty'] }}">
+                    <li class="w-full min-w-fit decoration-0 p-2 m-0 list-none border-2 border-slate-200 rounded-lg cursor-pointer bg-cyan-900 hover:bg-cyan-800 transition-all duration-300" id="{{ disease['id'] }}" data-specialty="{{ disease['specialty'] }}">
                         {{ disease['name'] }}
                     </li>
                     {% endfor %}
@@ -71,7 +73,7 @@
                 {% for clinic in clinics %}
                 <div class="w-full h-72 md:h-80 md:w-[32%] md:mx-[0.65%] rounded-lg shadow-slate-500 bg-blend-multiply cursor-pointer
                             flex flex-col justify-center items-center overflow-hidden object-fill bg-center bg-cover bg-no-repeat
-                            hover:shadow-slate-800 hover:bg-blend-multiply hover:bg-opacity-75 hover:bg-slate-800 clinic-card"
+                            hover:shadow-slate-800 hover:bg-blend-multiply hover:bg-opacity-75 hover:bg-slate-800 clinic-card transition-all duration-300"
                      style="background-image: url(/static/images/clinics_images/{{clinic.profile_img}})">
                     <!-- clinic details -->
                     <div class="w-full h-full flex flex-col justify-center px-2 pt-3 m-0 bg-slate-800 bg-opacity-30 text-slate-100 z-0">
@@ -111,8 +113,25 @@
             </div>
             <!-- reserve button -->
             <div class="w-full p-0 m-0 my-2 flex flex-col justify-center items-center">
-                <button class="w-1/2 p-2 text-center text-slate-200 bg-cyan-700 hover:bg-cyan-900 rounded-lg cursor-pointer" id="reserve">Reserve</button>
+                <button class="w-1/2 p-2 text-center text-slate-200 bg-cyan-700 hover:bg-cyan-900 rounded-lg cursor-pointer transition-all duration-300" id="reserve">Reserve</button>
             </div>
         </div>
+        <!-- footer -->
+        <section class="min-w-full w-fit h-8 relative flex justify-between bg-cyan-900 text-slate-200">
+            <div class="container max-w-[1680px] mx-auto flex justify-between items-center p-2">
+                <p class="text-xs md:text-lg">© 2024 Tamarjy. All rights reserved.</p>
+            </div>
+            <div class="w-1/2 max-w-[1680px] mx-auto flex justify-end items-center p-2">
+                <a href="https://github.com/mojtabababiker" target="_blank" rel="noopener noreferrer" class="decoration-0 block p-0 m-1">
+                    <img src="/static/images/icons/github_2.png" alt="github account" class="w-[30px] h-[30px] p-1 hover:scale-105 transition-all">
+                </a>
+                <a href="https://www.linkedin.com/in/mojtaba-mohammed-72b50823a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" class="decoration-0 block p-0 m-1">
+                    <img src="/static/images/icons/linkedin_2.png" alt="linkedin account" class="w-[30px] h-[30px] p-1 hover:scale-105 transition-all">
+                </a>
+                <a href="https://x.com/Mojtaba_Babik3r?t=Rf7LsCQJrBrMJ7vjY2jmQg&s=09" target="_blank" rel="noopener noreferrer" class="decoration-0 block p-0 m-1">
+                    <img src="/static/images/icons/twitter_2.png" alt="twitter account" class="w-[30px] h-[30px] p-1 hover:scale-105 transition-all">
+                </a>
+            </div>
+        </section>
     </body>
 </html>

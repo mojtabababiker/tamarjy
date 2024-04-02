@@ -60,7 +60,7 @@ $(document).ready(() => {
                         $('#clinics').append(
                             `<div class="w-full h-72 md:h-80 md:w-[32%] md:mx-[0.65%] rounded-lg shadow-slate-500 bg-blend-multiply cursor-pointer
                                         flex flex-col justify-center items-center overflow-hidden object-fill bg-center bg-cover bg-no-repeat
-                                        hover:shadow-slate-800 hover:bg-blend-multiply hover:bg-opacity-75 hover:bg-slate-800 clinic-card"
+                                        hover:shadow-slate-800 hover:bg-blend-multiply hover:bg-opacity-75 hover:bg-slate-800 clinic-card transition-all duration-300"
                                     style="background-image: url(/static/images/clinics_images/${clinic.image})">
                                 <!-- clinic details -->
                                 <div class="w-full h-full flex flex-col justify-center px-2 pt-3 m-0 bg-slate-800 bg-opacity-30 text-slate-100 z-0">
@@ -135,7 +135,7 @@ $(document).ready(() => {
                             data.times.forEach((time) => {
                                 $('#times').append(
                                     `<div class="w-1/4 h-1/4 border border-slate-500 rounded flex justify-center items-center text-slate-200 bg-cyan-700
-                                    hover:bg-cyan-900 hover:border-cyan-900 cursor-pointer">${time}</div>`
+                                    hover:bg-cyan-900 hover:border-cyan-900 cursor-pointer transition-all duration-300">${time}</div>`
                                 );
                             });
                             $('#times').children().each((index, element) => {

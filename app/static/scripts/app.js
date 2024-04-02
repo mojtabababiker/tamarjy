@@ -9,9 +9,8 @@ $(document).ready(() => {
     $('section a').each((index ,e) =>{
         $(e).on('click',() => {
             $('#nav_bar').addClass('hidden').removeClass('flex');
-            let divId = $(e).attr('href');
-            div = document.getElementById(divId);
-            console.log(divId);
+            const divId = $(e).attr('href');
+            const div = document.getElementById(divId);
             div.scrollIntoView({behavior: "smooth"});
         });
     });

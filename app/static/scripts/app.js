@@ -29,13 +29,12 @@ $(document).ready(() => {
             type: 'GET',
             headers: {'Diseases-Ids': diseases.join(', ')},
             success: (data) => {
-                alert(data.status)
                 $('#reserve')[0].click()
             }
         });
     });
     // API section
-    const url = `http://${window.location.host}/api/v1`;
+    const url = `http://localhost:5050/api/v1`;
     const resultDiv = $('#results'); // Result (div) container
     const diseasesNav = $('#diseases_nav'); // Diseases (ul) nav bar
     const diseaseDesc = $('#disease_desc p'); // Disease description (p) paragraph

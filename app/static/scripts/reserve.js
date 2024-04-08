@@ -20,7 +20,7 @@ $(document).ready(() => {
     // by default the first disease is selected and the clinics for that disease are displayed
     $('#diseases_nav li').first().addClass('bg-cyan-700').removeClass('bg-cyan-900');
     let specialty = [];  // the selected and displayed specialties
-    const url = `http://${window.location.host}/api/v1`;
+    const url = `http://localhost:5050/api/v1`;
     const userId = $('#user_id').data('userid');
     specialty.push($('#diseases_nav').children().first().data('specialty'));
 
@@ -134,7 +134,7 @@ $(document).ready(() => {
                             $('#times').html('');
                             data.times.forEach((time) => {
                                 $('#times').append(
-                                    `<div class="w-1/4 h-1/4 border border-slate-500 rounded flex justify-center items-center text-slate-200 bg-cyan-700
+                                    `<div class="w-1/4 h-[30px] border border-slate-500 rounded flex justify-center items-center text-slate-200 bg-cyan-700
                                     hover:bg-cyan-900 hover:border-cyan-900 cursor-pointer transition-all duration-300">${time}</div>`
                                 );
                             });
@@ -158,7 +158,7 @@ $(document).ready(() => {
                 });
             }).then(() => {
                 $('#days').trigger('change');
-                $('#clinic_dates').removeClass('hidden').addClass('flex');
+                $('#clinic_dates').removeClass('hidden').addClass('flex z-50');
             });
             $('#reserve').on('click', () => {
                 // get the datetime selected by the user
@@ -196,11 +196,11 @@ $(document).ready(() => {
                         confirmButtonColor: '#3498db',
                         showCancelButton: true,
                         cancelButtonText: 'Back home',
-                    }).then(() => {
+                    }).then((result) => {
                         if (result.dismiss === Swal.DismissReason.cancel) {
-                            return;
+                            window.location.href = '/';
                         }
-                        window.location.href = '/home';
+                        return;
                     });
                     $('#reservation_message h3').addClass('text-red-500').text('Please select a date');
                     $('#reservation_message').removeClass('hidden').addClass('block');
@@ -214,17 +214,17 @@ $(document).ready(() => {
                     success: (data) => {
                         Swal.fire({
                             title: 'Reservation set successfully',
-                            text: `Your appointment has been set successfully due ${date} at ${data.time}`,
+                            text: `Your appointment has been set successfully due ${date.split('t')[0]} at ${date.split('t')[1]}`,
                             icon: 'info',
                             confirmButtonText: 'Choose another',
                             confirmButtonColor: '#3498db',
                             showCancelButton: true,
                             cancelButtonText: 'Back home',
-                        }).then(() => {
+                        }).then((result) => {
                             if (result.dismiss === Swal.DismissReason.cancel) {
-                                return;
+                                window.location.href = '/';
                             }
-                            window.location.href = '/home';
+                            return;
                         });
                         $('#reservation_message h3').addClass('text-green-500').text(data.message);
                         $('#reservation_message').removeClass('hidden').addClass('block');

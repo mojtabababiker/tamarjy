@@ -1042,6 +1042,10 @@ video {
   align-self: flex-start;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1186,11 +1190,11 @@ video {
 }
 
 .bg-\[url\(\'\/static\/images\/icons\/bg_2\.svg\'\)\] {
-  background-image: url('../static/images/icons/bg_2.svg');
+  background-image: url('/static/images/icons/bg_2.svg');
 }
 
 .bg-\[url\(\'\/static\/images\/icons\/headr_bg\.svg\'\)\] {
-  background-image: url('../static/images/icons/headr_bg.svg');
+  background-image: url('/static/images/icons/headr_bg.svg');
 }
 
 .bg-\[length\:100\%_100\%\] {
